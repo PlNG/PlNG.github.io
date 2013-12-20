@@ -1,0 +1,971 @@
+# Vanilla172.auto.cgs
+# CGS Script for Cartograph G by Gameslinder
+# An attempt to add textures for rendering of new blocks
+# Modeled after the aether.auto.cgs example provided by Gameslinder
+# Based upon BigDog6's (aka Eagle751) script for MC 1.6.2
+# MC 1.7.2 additions and things by Rezzing, Rev. 1.1
+# Changes, 1.1: Added nicer crop fields
+
+SelectBlock 3
+BlockHasSide
+// BlockName Dirt
+MainTexture 120 99 63
+SideTexture 120 99 63
+SelectBlockData 3 2
+BlockHasSide
+// BlockName Podzol
+MainTexture 139 95 47
+SideTexture 120 99 63
+
+SelectBlock 5
+BlockHasSide
+// BlockName Wooden Plank (Oak)
+MainTexture 157 128 76
+SideTexture 157 128 76
+SelectBlockData 5 1
+BlockHasSide
+// BlockName Spruce Wood Plank
+MainTexture 109 81 44
+SideTexture 109 81 44
+SelectBlockData 5 2
+BlockHasSide
+// BlockName Birch Wood Plank
+MainTexture 176 175 117
+SideTexture 176 175 117
+SelectBlockData 5 3
+BlockHasSide
+// BlockName Jungle Wood Plank
+MainTexture 147 110 70
+SideTexture 147 110 70
+SelectBlockData 5 4
+BlockHasSide
+// BlockName Wooden Plank (Acacia)
+MainTexture 197 115 55
+SideTexture 197 115 55
+SelectBlockData 5 5
+BlockHasSide
+// BlockName Wooden Plank (Dark Oak)
+MainTexture 82 55 40
+SideTexture 82 55 40
+
+SelectBlock 12
+// BlockName Sand
+BlockHasSide
+MainTexture 235 230 158
+SideTexture 235 230 158
+SelectBlockData 12 1
+// BlockName Red Sand
+BlockHasSide
+MainTexture 162 79 60
+SideTexture 162 79 60
+
+SelectBlock 17
+// BlockName Wood (Oak)
+BlockHasSide
+MainTexture 129 100 64
+SideTexture 94 73 47
+SelectBlockData 17 1
+// BlockName Spruce Wood
+BlockHasSide
+MainTexture 92 63 40
+SideTexture 75 47 23
+SelectBlockData 17 2
+// BlockName Birch Wood
+BlockHasSide
+MainTexture 142 130 61
+SideTexture 177 175 160
+SelectBlockData 17 3
+// BlockName Jungle Wood
+BlockHasSide
+MainTexture 101 82 42
+SideTexture 80 65 19
+SelectBlockData 17 4
+// BlockName Wood (Oak 4)
+BlockHasSide
+MainTexture 154 91 34
+SideTexture 140 119 100
+SelectBlockData 17 5
+BlockHasSide
+// BlockName Wood (Oak 5)
+MainTexture 84 59 38
+SideTexture 68 47 29
+
+SelectBlock 18
+BlockHasSide
+// BlockName Oak Leaves
+MainTexture 45 99 23
+SideTexture 45 99 23
+Transparency 100
+SelectBlockData 18 1
+BlockHasSide
+// BlockName Spruce Leaves
+MainTexture 44 79 36
+SideTexture 44 79 36
+Transparency 100
+SelectBlockData 18 2
+BlockHasSide
+// BlockName Birch Leaves
+MainTexture 71 105 12
+SideTexture 71 105 12
+Transparency 100
+SelectBlockData 18 3
+BlockHasSide
+// BlockName Jungle Leaves
+MainTexture 41 101 6
+SideTexture 41 101 6
+Transparency 100
+
+SelectBlock 59
+BlockHasSide
+// BlockName Crops
+MainTexture 61 164 25
+SideTexture 61 164 25
+Transparency 140
+SelectBlockData 59 1
+BlockHasSide
+// BlockName Crops
+MainTexture 85 179 28
+SideTexture 61 164 25
+SelectBlockData 59 2
+Transparency 130
+BlockHasSide
+// BlockName Crops
+MainTexture 108 196 36
+SideTexture 72 159 20
+Transparency 120
+SelectBlockData 59 3
+BlockHasSide
+// BlockName Crops
+MainTexture 127 209 47
+SideTexture 72 157 31
+Transparency 110
+SelectBlockData 59 4
+BlockHasSide
+// BlockName Crops
+MainTexture 158 224 54
+SideTexture 83 164 33
+Transparency 100
+SelectBlockData 59 5
+BlockHasSide
+// BlockName Crops
+MainTexture 184 232 56
+SideTexture 108 179 39
+Transparency 90
+SelectBlockData 59 6
+BlockHasSide
+// BlockName Crops
+MainTexture 221 249 63
+SideTexture 141 186 44
+Transparency 80
+SelectBlockData 59 7
+BlockHasSide
+// BlockName Crops
+MainTexture 251 221 54
+SideTexture 170 194 34
+Transparency 80
+
+SelectBlock 95
+BlockHasSide
+// BlockName Stained Glass (White)
+MainTexture 211 211 211
+SideTexture 211 211 211
+Transparency 180
+SelectBlockData 95 1
+BlockHasSide
+// BlockName Stained Glass (Orange)
+MainTexture 221 144 43
+SideTexture 221 144 43
+Transparency 180
+SelectBlockData 95 2
+BlockHasSide
+// BlockName Stained Glass (Magenta)
+MainTexture 175 81 192
+SideTexture 175 81 192
+Transparency 180
+SelectBlockData 95 3
+BlockHasSide
+// BlockName Stained Glass (Light Blue)
+MainTexture 124 190 231
+SideTexture 124 190 231
+Transparency 180
+SelectBlockData 95 4
+BlockHasSide
+// BlockName Stained Glass (Yellow)
+MainTexture 223 229 69
+SideTexture 223 229 69
+Transparency 180
+SelectBlockData 95 5
+BlockHasSide
+// BlockName Stained Glass (Lime)
+MainTexture 125 227 75
+SideTexture 125 227 75
+Transparency 180
+SelectBlockData 95 6
+BlockHasSide
+// BlockName Stained Glass (Pink)
+MainTexture 251 157 214
+SideTexture 251 157 214
+Transparency 180
+SelectBlockData 95 7
+BlockHasSide
+// BlockName Stained Glass (Gray)
+MainTexture 144 144 144
+SideTexture 144 144 144
+Transparency 180
+SelectBlockData 95 8
+BlockHasSide
+// BlockName Stained Glass (Light Gray)
+MainTexture 199 199 199
+SideTexture 199 199 199
+Transparency 180
+SelectBlockData 95 9
+BlockHasSide
+// BlockName Stained Glass (Cyan)
+MainTexture 70 207 219
+SideTexture 70 207 219
+Transparency 180
+SelectBlockData 95 10
+BlockHasSide
+// BlockName Stained Glass (Purple)
+MainTexture 154 79 189
+SideTexture 154 79 189
+Transparency 180
+SelectBlockData 95 11
+BlockHasSide
+// BlockName Stained Glass (Blue)
+MainTexture 62 85 221
+SideTexture 62 85 221
+Transparency 180
+SelectBlockData 95 12
+BlockHasSide
+// BlockName Stained Glass (Brown)
+MainTexture 124 77 49
+SideTexture 124 77 49
+Transparency 180
+SelectBlockData 95 13
+BlockHasSide
+// BlockName Stained Glass (Green)
+MainTexture 76 187 73
+SideTexture 76 187 73
+Transparency 180
+SelectBlockData 95 14
+BlockHasSide
+// BlockName Stained Glass (Red)
+MainTexture 197 75 75
+SideTexture 197 75 75
+Transparency 180
+SelectBlockData 95 15
+BlockHasSide
+// BlockName Stained Glass (Black)
+MainTexture 78 78 78
+SideTexture 78 78 78
+Transparency 180
+
+SelectBlock 160
+BlockHasSide
+// BlockName Stained Glass Pane (White)
+MainTexture 211 211 211
+SideTexture 211 211 211
+Transparency 180
+SelectBlockData 160 1
+BlockHasSide
+// BlockName Stained Glass Pane (Orange)
+MainTexture 221 144 43
+SideTexture 221 144 43
+Transparency 180
+SelectBlockData 160 2
+BlockHasSide
+// BlockName Stained Glass Pane (Magenta)
+MainTexture 175 81 192
+SideTexture 175 81 192
+Transparency 180
+SelectBlockData 160 3
+BlockHasSide
+// BlockName Stained Glass Pane (Light Blue)
+MainTexture 124 190 231
+SideTexture 124 190 231
+Transparency 180
+SelectBlockData 160 4
+BlockHasSide
+// BlockName Stained Glass Pane (Yellow)
+MainTexture 223 229 69
+SideTexture 223 229 69
+Transparency 180
+SelectBlockData 160 5
+BlockHasSide
+// BlockName Stained Glass Pane (Lime)
+MainTexture 125 227 75
+SideTexture 125 227 75
+Transparency 180
+SelectBlockData 160 6
+BlockHasSide
+// BlockName Stained Glass Pane (Pink)
+MainTexture 251 157 214
+SideTexture 251 157 214
+Transparency 180
+SelectBlockData 160 7
+BlockHasSide
+// BlockName Stained Glass Pane (Gray)
+MainTexture 144 144 144
+SideTexture 144 144 144
+Transparency 180
+SelectBlockData 160 8
+BlockHasSide
+// BlockName Stained Glass Pane (Light Gray)
+MainTexture 199 199 199
+SideTexture 199 199 199
+Transparency 180
+SelectBlockData 160 9
+BlockHasSide
+// BlockName Stained Glass Pane (Cyan)
+MainTexture 70 207 219
+SideTexture 70 207 219
+Transparency 180
+SelectBlockData 160 10
+BlockHasSide
+// BlockName Stained Glass Pane (Purple)
+MainTexture 154 79 189
+SideTexture 154 79 189
+Transparency 180
+SelectBlockData 160 11
+BlockHasSide
+// BlockName Stained Glass Pane (Blue)
+MainTexture 62 85 221
+SideTexture 62 85 221
+Transparency 180
+SelectBlockData 160 12
+BlockHasSide
+// BlockName Stained Glass Pane (Brown)
+MainTexture 124 77 49
+SideTexture 124 77 49
+Transparency 180
+SelectBlockData 160 13
+BlockHasSide
+// BlockName Stained Glass Pane (Green)
+MainTexture 76 187 73
+SideTexture 76 187 73
+Transparency 180
+SelectBlockData 160 14
+BlockHasSide
+// BlockName Stained Glass Pane (Red)
+MainTexture 197 75 75
+SideTexture 197 75 75
+Transparency 180
+SelectBlockData 160 15
+BlockHasSide
+// BlockName Stained Glass Pane (Black)
+MainTexture 78 78 78
+SideTexture 78 78 78
+Transparency 180
+
+SelectBlock 161
+BlockHasSide
+// BlockName Acacia Leaves
+MainTexture 64 82 21
+SideTexture 64 82 21
+Transparency 100
+SelectBlockData 161 1
+BlockHasSide
+// BlockName Dark Oak Leaves
+MainTexture 30 65 16
+SideTexture 30 65 16
+Transparency 100
+
+SelectBlock 38
+BlockName Poppy
+BlockHasSide
+MainTexture 220 51 51
+SideTexture 220 51 51
+SelectBlockData 38 1
+// BlockName Blue Orchid
+BlockHasSide
+MainTexture 30 168 168
+SideTexture 30 168 168
+SelectBlockData 38 2
+// BlockName Allium
+BlockHasSide
+MainTexture 213 112 235
+SideTexture 213 112 235
+SelectBlockData 38 4
+// BlockName Red Tulip
+BlockHasSide
+MainTexture 180 38 28
+SideTexture 180 38 28
+SelectBlockData 38 5
+// BlockName Orange Tulip
+BlockHasSide
+MainTexture 222 145 36
+SideTexture 222 145 36
+SelectBlockData 38 6
+// BlockName White Tulip
+BlockHasSide
+MainTexture 180 180 180
+SideTexture 180 180 180
+SelectBlockData 38 7
+// BlockName Pink Tulip
+BlockHasSide
+MainTexture 220 103 208
+SideTexture 220 103 208
+SelectBlockData 38 8
+// BlockName Oxeye Daisy
+BlockHasSide
+MainTexture 212 217 167
+SideTexture 212 217 167
+
+SelectBlock 44
+BlockHasSide
+// BlockName Stone Slab
+MainTexture 179 179 179
+SideTexture 179 179 179
+SelectBlockData 44 1
+BlockHasSide
+// BlockName Sandstone Slab
+MainTexture 201 200 133
+SideTexture 201 200 133
+SelectBlockData 44 2
+BlockHasSide
+// BlockName Wooden Slab
+MainTexture 157 128 76
+SideTexture 157 128 76
+SelectBlockData 44 3
+BlockHasSide
+// BlockName Cobblestone Slab
+MainTexture 116 116 116
+SideTexture 116 116 116
+SelectBlockData 44 4
+BlockHasSide
+// BlockName Brick Slab
+MainTexture 139 84 75
+SideTexture 139 84 75
+SelectBlockData 44 5
+BlockHasSide
+// BlockName Stone Brick Slab
+MainTexture 139 139 139
+SideTexture 139 139 139
+SelectBlockData 44 6
+BlockHasSide
+// BlockName Nether Brick Slab
+MainTexture 55 30 37
+SideTexture 55 30 37
+SelectBlockData 44 7
+BlockHasSide
+// BlockName Quartz Slab
+MainTexture 222 220 214
+SideTexture 222 220 214
+
+SelectBlock 111
+// BlockName Lily Pad
+MainTexture 13 80 48
+Transparency 120
+BlockIsTile
+
+SelectBlock 112
+BlockHasSide
+// BlockName Nether Brick
+MainTexture 55 30 37
+SideTexture 55 30 37
+
+SelectBlock 113
+BlockHasSide
+// BlockName Nether Brick Fence
+MainTexture 55 30 37
+SideTexture 55 30 37
+
+SelectBlock 114
+BlockHasSide
+// BlockName Nether Brick Stairs
+MainTexture 55 30 37
+SideTexture 55 30 37
+SelectBlockData 114 1
+BlockHasSide
+// BlockName Nether Brick Stairs
+MainTexture 55 30 37
+SideTexture 55 30 37
+SelectBlockData 114 2
+BlockHasSide
+// BlockName Nether Brick Stairs
+MainTexture 55 30 37
+SideTexture 55 30 37
+SelectBlockData 114 3
+BlockHasSide
+// BlockName Nether Brick Stairs
+MainTexture 55 30 37
+SideTexture 55 30 37
+SelectBlockData 114 4
+BlockHasSide
+// BlockName Nether Brick Stairs
+MainTexture 55 30 37
+SideTexture 55 30 37
+SelectBlockData 114 5
+BlockHasSide
+// BlockName Nether Brick Stairs
+MainTexture 55 30 37
+SideTexture 55 30 37
+SelectBlockData 114 6
+BlockHasSide
+// BlockName Nether Brick Stairs
+MainTexture 55 30 37
+SideTexture 55 30 37
+SelectBlockData 114 7
+BlockHasSide
+// BlockName Nether Brick Stairs
+MainTexture 55 30 37
+SideTexture 55 30 37
+SelectBlockData 114 8
+BlockHasSide
+// BlockName Nether Brick Stairs
+MainTexture 55 30 37
+SideTexture 55 30 37
+
+SelectBlock 125
+BlockHasSide
+// BlockName Oak Wood Slab (Double)
+MainTexture 157 128 76
+SideTexture 157 128 76
+SelectBlockData 125 1
+BlockHasSide
+// BlockName Spruce Wood Slab (Double)
+MainTexture 109 81 44
+SideTexture 109 81 44
+SelectBlockData 125 2
+BlockHasSide
+// BlockName Birch Wood Slab (Double)
+MainTexture 176 175 117
+SideTexture 176 175 117
+SelectBlockData 125 3
+BlockHasSide
+// BlockName Jungle Wood Slab (Double)
+MainTexture 147 110 70
+SideTexture 147 110 70
+SelectBlockData 125 4
+BlockHasSide
+// BlockName Acacia Wood Slab (Double)
+MainTexture 197 115 55
+SideTexture 197 115 55
+SelectBlockData 125 5
+BlockHasSide
+// BlockName Dark Oak Wood Slab (Double)
+MainTexture 82 55 40
+SideTexture 82 55 40
+
+SelectBlock 126
+BlockHasSide
+// BlockName Oak Wood Slab
+MainTexture 157 128 76
+SideTexture 157 128 76
+SelectBlockData 126 1
+BlockHasSide
+// BlockName Spruce Wood Slab
+MainTexture 109 81 44
+SideTexture 109 81 44
+SelectBlockData 126 2
+BlockHasSide
+// BlockName Birch Wood Slab
+MainTexture 176 175 117
+SideTexture 176 175 117
+SelectBlockData 126 3
+BlockHasSide
+// BlockName Jungle Wood Slab
+MainTexture 147 110 70
+SideTexture 147 110 70
+SelectBlockData 126 4
+BlockHasSide
+// BlockName Acacia Wood Slab
+MainTexture 197 115 55
+SideTexture 197 115 55
+SelectBlockData 126 5
+// BlockName Dark Oak Wood Slab
+MainTexture 82 55 40
+SideTexture 82 55 40
+
+SelectBlock 151
+BlockName Daylight Sensor
+MainTexture 182 37 36
+BlockIsTile
+
+SelectBlock 152
+BlockName Block of Redstone
+MainTexture 212 36 11
+
+SelectBlock 153
+BlockName Nether Quartz Ore
+MainTexture 191 140 138
+
+SelectBlock 154
+BlockName Hopper
+MainTexture 70 70 70
+
+SelectBlock 155
+//SelectData 0
+BlockName Quartz Block
+BlockHasSide
+MainTexture 222 220 214
+SideTexture 222 220 214
+// SelectData 1
+// MainTexture 222 220 214 #Chiseled Quartz
+// SelectData 2
+// MainTexture 222 220 214 #Quartz Pillar Vertical
+// SelectData 3
+// MainTexture 222 220 214 #Quartz Pillar Horizontal NS
+// SelectData 4
+// MainTexture 222 220 214 #Quartz Pillar Horizontal EW
+
+SelectBlock 156
+BlockHasSide
+BlockName Quartz Stairs
+MainTexture 222 220 214
+SideTexture 222 220 214
+SelectBlockData 156 1
+BlockHasSide
+//BlockName Quartz Stairs
+MainTexture 222 220 214
+SideTexture 222 220 214
+SelectBlockData 156 2
+BlockHasSide
+//BlockName Quartz Stairs
+MainTexture 222 220 214
+SideTexture 222 220 214
+SelectBlockData 156 3
+BlockHasSide
+//BlockName Quartz Stairs
+MainTexture 222 220 214
+SideTexture 222 220 214
+SelectBlockData 156 4
+BlockHasSide
+//BlockName Quartz Stairs
+MainTexture 222 220 214
+SideTexture 222 220 214
+SelectBlockData 156 5
+BlockHasSide
+//BlockName Quartz Stairs
+MainTexture 222 220 214
+SideTexture 222 220 214
+SelectBlockData 156 6
+BlockHasSide
+//BlockName Quartz Stairs
+MainTexture 222 220 214
+SideTexture 222 220 214
+SelectBlockData 156 7
+BlockHasSide
+//BlockName Quartz Stairs
+MainTexture 222 220 214
+SideTexture 222 220 214
+SelectBlockData 156 8
+BlockHasSide
+//BlockName Quartz Stairs
+MainTexture 222 220 214
+SideTexture 222 220 214
+
+SelectBlock 157
+BlockName Activator Rail
+MainTexture 153 103 69
+BlockIsTile
+
+SelectBlock 158
+BlockName Dropper
+MainTexture 107 107 107
+
+SelectBlock 159
+BlockHasSide
+BlockName Stained Clay
+MainTexture 176 109 63
+SideTexture 176 109 63
+SelectBlockData 159 0
+BlockHasSide
+// BlockName White Clay Block
+MainTexture 212 177 159 # White
+SideTexture 212 177 159 # White
+SelectBlockData 159 1
+BlockHasSide
+// BlockName Orange Clay Block
+MainTexture 200 123 70 # Orange
+SideTexture 200 123 70 # Orange
+SelectBlockData 159 2
+BlockHasSide
+// BlockName Magenta Clay Block
+MainTexture 151 87 157 # Magenta
+SideTexture 151 87 157 # Magenta
+SelectBlockData 159 3
+BlockHasSide
+// BlockName Light Blue Clay Block
+MainTexture 134 158 209 # Light Blue
+SideTexture 134 158 209 # Light Blue
+SelectBlockData 159 4
+BlockHasSide
+// BlockName Yellow Clay Block
+MainTexture 192 183 89 # Yellow
+SideTexture 192 183 89 # Yellow
+SelectBlockData 159 5
+BlockHasSide
+// BlockName Light Green Clay Block
+MainTexture 59 188 47 # Light Green or Lime
+SideTexture 59 188 47 # Light Green or Lime
+SelectBlockData 159 6
+BlockHasSide
+// BlockName Pink Clay Block
+MainTexture 217 131 154 # Pink
+SideTexture 217 131 154 # Pink
+SelectBlockData 159 7
+BlockHasSide
+// BlockName Gray Clay Block
+MainTexture 65 52 46 # Gray
+SideTexture 65 52 46 # Gray
+SelectBlockData 159 8
+BlockHasSide
+// BlockName Light Gray Clay Block
+MainTexture 142 116 102 # Light Gray
+SideTexture 142 116 102 # Light Gray
+SelectBlockData 159 9
+BlockHasSide
+// BlockName Cyan Clay Block
+MainTexture 39 116 149 # Cyan
+SideTexture 39 116 149 # Cyan
+SelectBlockData 159 10
+BlockHasSide
+// BlockName Purple Clay Block
+MainTexture 129 53 195 # Purple
+SideTexture 129 53 195 # Purple
+SelectBlockData 159 11
+BlockHasSide
+// BlockName Blue Clay Block
+MainTexture 38 51 153 # Blue
+SideTexture 38 51 153 # Blue
+SelectBlockData 159 12
+BlockHasSide
+// BlockName Brown Clay Block
+MainTexture 85 51 27 # Brown
+SideTexture 85 51 27 # Brown
+SelectBlockData 159 13
+BlockHasSide
+// BlockName Green Clay Block
+MainTexture 55 77 24 # Dark Green
+SideTexture 55 77 24 # Dark Green
+SelectBlockData 159 14
+BlockHasSide
+// BlockName Red Clay Block
+MainTexture 163 44 40 # Red
+SideTexture 163 44 40 # Red
+SelectBlockData 159 15
+BlockHasSide
+// BlockName Black Clay Block
+MainTexture 26 23 23 # Black
+SideTexture 26 23 23 # Black
+
+SelectBlock 162
+BlockHasSide
+BlockName Wood (Acacia Oak)
+MainTexture 197 115 55
+SideTexture 150 134 119
+SelectBlockData 162 1
+BlockHasSide
+// BlockName Wood (Dark Oak)
+MainTexture 68 53 39
+SideTexture 73 50 31
+
+SelectBlock 163
+BlockHasSide
+BlockName Acacia Wood Stairs
+MainTexture 197 115 55
+SideTexture 197 115 55
+SelectBlockData 163 1
+BlockHasSide
+//BlockName Acacia Wood Stairs
+MainTexture 197 115 55
+SideTexture 197 115 55
+SelectBlockData 163 2
+BlockHasSide
+//BlockName Acacia Wood Stairs
+MainTexture 197 115 55
+SideTexture 197 115 55
+SelectBlockData 163 3
+BlockHasSide
+//BlockName Acacia Wood Stairs
+MainTexture 197 115 55
+SideTexture 197 115 55
+SelectBlockData 163 4
+BlockHasSide
+//BlockName Acacia Wood Stairs
+MainTexture 197 115 55
+SideTexture 197 115 55
+SelectBlockData 163 5
+BlockHasSide
+//BlockName Acacia Wood Stairs
+MainTexture 197 115 55
+SideTexture 197 115 55
+SelectBlockData 163 6
+BlockHasSide
+//BlockName Acacia Wood Stairs
+MainTexture 197 115 55
+SideTexture 197 115 55
+SelectBlockData 163 7
+BlockHasSide
+//BlockName Acacia Wood Stairs
+MainTexture 197 115 55
+SideTexture 197 115 55
+SelectBlockData 163 8
+BlockHasSide
+//BlockName Acacia Wood Stairs
+MainTexture 197 115 55
+SideTexture 197 115 55
+
+SelectBlock 164
+BlockHasSide
+BlockName Dark Oak Wood Stairs
+MainTexture 82 55 40
+SideTexture 82 55 40
+SelectBlockData 164 1
+BlockHasSide
+//BlockName Dark Oak Wood Stairs
+MainTexture 82 55 40
+SideTexture 82 55 40
+SelectBlockData 164 2
+BlockHasSide
+//BlockName Dark Oak Wood Stairs
+MainTexture 82 55 40
+SideTexture 82 55 40
+SelectBlockData 164 3
+BlockHasSide
+//BlockName Dark Oak Wood Stairs
+MainTexture 82 55 40
+SideTexture 82 55 40
+SelectBlockData 164 4
+BlockHasSide
+//BlockName Dark Oak Wood Stairs
+MainTexture 82 55 40
+SideTexture 82 55 40
+SelectBlockData 164 5
+BlockHasSide
+//BlockName Dark Oak Wood Stairs
+MainTexture 82 55 40
+SideTexture 82 55 40
+SelectBlockData 164 6
+BlockHasSide
+//BlockName Dark Oak Wood Stairs
+MainTexture 82 55 40
+SideTexture 82 55 40
+SelectBlockData 164 7
+BlockHasSide
+//BlockName Dark Oak Wood Stairs
+MainTexture 82 55 40
+SideTexture 82 55 40
+SelectBlockData 164 8
+BlockHasSide
+//BlockName Dark Oak Wood Stairs
+MainTexture 82 55 40
+SideTexture 82 55 40
+
+SelectBlock 170
+BlockHasSide
+BlockName Hay Block
+MainTexture 154 137 22
+SideTexture 142 101 3
+
+SelectBlock 171
+BlockName Carpet
+MainTexture 221 221 221 # White
+BlockIsTile
+SelectBlockData 171 0
+// BlockName White Carpet
+MainTexture 221 221 221 # White
+BlockIsTile
+SelectBlockData 171 1
+// BlockName Orange Carpet
+MainTexture 234 127 54 # Orange
+BlockIsTile
+SelectBlockData 171 2
+// BlockName Magenta Carpet
+MainTexture 190 75 200 # Magenta
+BlockIsTile
+SelectBlockData 171 3
+// BlockName Light Blue Carpet
+MainTexture 103 138 211 # Light Blue
+BlockIsTile
+SelectBlockData 171 4
+// BlockName Yellow Carpet
+MainTexture 194 180 28 # Yellow
+BlockIsTile
+SelectBlockData 171 5
+// BlockName Light Green Carpet
+MainTexture 59 188 47 # Light Green or Lime
+BlockIsTile
+SelectBlockData 171 6
+// BlockName Pink Carpet
+MainTexture 217 131 154 # Pink
+BlockIsTile
+SelectBlockData 171 7
+// BlockName Gray Carpet
+MainTexture 66 66 66 # Gray
+BlockIsTile
+SelectBlockData 171 8
+// BlockName Light Gray Carpet
+MainTexture 158 165 165 # Light Gray
+BlockIsTile
+SelectBlockData 171 9
+// BlockName Cyan Carpet
+MainTexture 39 116 149 # Cyan
+BlockIsTile
+SelectBlockData 171 10
+// BlockName Purple Carpet
+MainTexture 129 53 195 # Purple
+BlockIsTile
+SelectBlockData 171 11
+// BlockName Blue Carpet
+MainTexture 38 51 153 # Blue
+BlockIsTile
+SelectBlockData 171 12
+// BlockName Brown Carpet
+MainTexture 85 51 27 # Brown
+BlockIsTile
+SelectBlockData 171 13
+// BlockName Green Carpet
+MainTexture 55 77 24 # Dark Green
+BlockIsTile
+SelectBlockData 171 14
+// BlockName Red Carpet
+MainTexture 163 44 40 # Red
+BlockIsTile
+SelectBlockData 171 15
+// BlockName Black Carpet
+MainTexture 26 23 23 # Black
+BlockIsTile
+
+SelectBlock 172
+BlockName Hardened Clay
+BlockHasSide
+MainTexture 176 109 63
+SideTexture 176 109 63
+
+SelectBlock 173
+BlockName Block of Coal
+MainTexture 115 115 115
+
+SelectBlock 175
+BlockName Sunflower
+BlockHasSide
+MainTexture 218 197 23
+SideTexture 218 197 23
+SelectBlockData 175 1
+// BlockName Lilac
+BlockHasSide
+MainTexture 205 146 202
+SideTexture 205 146 202
+SelectBlockData 175 2
+// BlockName Double Tallgrass
+BlockHasSide
+MainTexture 72 150 66
+SideTexture 72 150 66
+SelectBlockData 175 3
+// BlockName Large Fern
+BlockHasSide
+MainTexture 72 150 66
+SideTexture 72 150 66
+SelectBlockData 175 4
+// BlockName Rose Bush
+BlockHasSide
+MainTexture 172 28 28
+SideTexture 172 28 28
+SelectBlockData 175 5
+// BlockName Peony
+BlockHasSide
+MainTexture 234 184 217
+SideTexture 234 184 217
