@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>MineCraft Resource Density Detector</title>
+        <style type="text/css">
+            canvas {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+            #heightmapfileinput {
+                visibility:hidden;
+            }
+        </style>
+        <script type="text/javascript">
+            window.onload = function() {
+                "use strict";
+                var el = document.getElementById("heightmapfile"),
+                    el2 = document.getElementById("heightmapfileinput");
+                el.onchange = function() {
+                    if (el.value === "custom") {
+                        el2.style.visibility = "visible";
+                    } else {
+                        el2.style.visibility = "hidden";
+                    }
+                }
+            }
+            function loadImage() {
+                "use strict";
+                var input, file, fr, img;
+                if (typeof window.FileReader !== "function") {
+                    write("The file API is not supported on this browser yet.");
+                    return;
+                }
+                input = document.getElementById("imgfile");
+                if (!input) {
+                    write("Could not find the imgfile element.");
+                } else {
+                    if (!input.files) {
+                        write("This browser does not seem to support the 'files' property of file inputs.");
+                    } else {
+                        if (!input.files[0]) {
+                            write("Please select a file before clicking 'Load'");
+                        } else {
+                            file = input.files[0];
+                            fr = new FileReader();
+                            fr.onload = createImage;
+                            fr.readAsDataURL(file);
+                        }
+                    }
+                }
+                function createImage() {
+                    img = new Image();
+                    img.onload = imageLoaded;
+                    img.src = fr.result;
+                }
+                function imageLoaded() {
+                    var canvas = document.getElementById("canvasIN");
+                    var out = document.getElementById("canvasOUT");
+                    var width = canvas.width = img.width;
+                    var height = canvas.height = img.height;
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(img,0,0);
+                    var pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+                    var i;
+                    var resources = {};
+                    var floor = Math.floor;
+                    for (i = 0; i < pixels.length; i+= 4) {
+                        if (pixels[i][0] !== 0 || pixels[i][1] !== 0 || pixels[i][2] !== 0 || pixels[i][3] !== 0) {
+                            x = floor(i/width);
+                            z = i%width;
+                            if (resources[x] === undefined) {
+                                resources[x] = {};
+                            }
+                            color = parseInt(pixels[i][0], 16) + parseInt(pixels[i][1], 16) + parseInt(pixels[i][2], 16);
+                            if (!heightmap[color]) {
+                                write('Color "' + color + '" is not defined in the heightmap.');
+                                return false;
+                            }
+                            resources[x][z] = heightmap[color];
+                        }
+                    }
+                    var multi = {};
+                    var abs = Math.abs();
+                    for (x in resources) {
+                        for (z in resources[x]) {
+                            for (xseek = x-radius, xstop = x+radius; xseek < xstop; xseek++) {
+                                if (resources[xseek] !== undefined) {
+                                    for (zseek = z-radius, zstop = z+radius; zseek < zstop; zseek++) {
+                                        if (resources[xseek][zseek] !== undefined) {
+                                            if (abs(resources[x][z] - resources[xseek][yseek]) < radius) {
+                                                if (multi[x] === undefined) {
+                                                    multi[x] = {};
+                                                    multi[x][z] = 0
+                                                }
+                                                multi[x][z] = multi[x][z] + 1;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                function write(msg) {
+                    "use strict";
+                    var miniConsole = document.getElementById("miniConsole");
+                    miniConsole.value += msg;
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <form action="#" onsubmit="return false;">
+            <label for="imgfile">The Data map:<input type="file" id="imgfile"></label><br>
+            <label for="topofile">The Topograph map:<input type="file" id="topofile"></label><br>
+            <label for="heightmapfile">The Height map:<select id="heightmapfile"><option selected value="color">Cartograph: Default color heightmap</option><option value="gray">Cartograph: Default grayscale heightmap</option><option value="custom">Custom heightmap</option></select></label><label for="heightmapfileinput">Custom Heightmap:<input type="file" id="heightmapfileinput"></label><br>
+            <label for="radius">Radius to look for other resources of the same type:<input id="radius" size="1"></label><br>
+            <label>Coordinates of the Marker (optional):<label for="coordX">X:<input id="coordX" size="1"></label><label for="coordY">Y:<input id="coordY" size="1"></label><label for="coordZ">Z:<input id="coordZ" size="1"></label></label>
+            <input type="button" id="btnLoad" value="Run" onclick="loadImage();">
+        </form>
+        <canvas id="canvasIN">HTML5 Canvas Support Required</canvas>
+        <canvas id="canvasOUT">HTML5 Canvas Support Required</canvas>
+        <p>Data map: In Cartograph G: Generate two maps: The resource map, and optionally a plain topograph map. Load these files into the form fields.</p>
+        <p>Heightmap: If you use a custom heightmap, the program will need an image of the heightmap that has the pixel color values in order from lowest value in the first pixel to the highest value in the last pixel starting from the top left corner of the image.</p>
+        <p>Radius: How far you want the program to look for other resources.</p>
+        <p>Coordinates of the Marker: The marker in which to compute coordinates from. Because the generated map is heightmap only, the resource used should be unique to the map and <em>very</em> high (or using an image editor put a red pixel where you wish to designate the coordinate marker at Y:255)</p>
+        <p>When the program has finished assimilating the data, it will draw squares to a second canvas where resource regions overlap and color by how many there are similarly to the heightmap.</p>
+        <p>If coordinates are supplied, they will be attached.</p>
+        <p>The topograph map is not necessary, but it can help you get there visually, and you will be able to toggle between the two.</p>
+        <label for="miniConsole">Mini-Console:<br><textarea id="miniConsole" readonly placeholder="Mini-console for program output"></textarea></label>
+    </body>
+</html>
