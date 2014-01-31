@@ -4,97 +4,190 @@
         <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
         <title>MineCraft Resource Density Detector</title>
         <style type="text/css">
-            canvas {
+            #canvasTOP, #canvasOUT {
                 position: absolute;
                 top: 0;
                 left: 0;
             }
-            #heightmapfileinput {
+            input {
+                border: 1px solid black;
+            }
+            #canvasTOP {
                 visibility:hidden;
+            }
+            #heightmapfileinput {
+                display: none;
+            }
+            #canvasTOP {
+                z-index: 1;
+            }
+            #canvasIMG {
+                z-index: 2;
+            }
+            #canvasOUT {
+                z-index: 3;
+            }
+            #miniConsole {
+                width:100%;
+                height:10em;
+            }
+            #mapContainer {
+                position:relative;
+            }
+            #tooltip {
+                position:absolute;
+                visibility: hidden;
+                z-index:4;
+                display:inline-block;
             }
         </style>
         <script type="text/javascript">
-            window.onload = function() {
-                "use strict";
-                var el = document.getElementById("heightmapfile"),
-                    el2 = document.getElementById("heightmapfileinput");
-                el.onchange = function() {
-                    if (el.value === "custom") {
-                        el2.style.visibility = "visible";
+            var heightmapColor={"000000":0,"0004ff":1,"0008ff":2,"000cff":3,"0010ff":4,"0014ff":5,"0018ff":6,"001cff":7,"0020ff":8,"0024ff":9,"0028ff":10,"002cff":11,"0030ff":12,"0034ff":13,"0038ff":14,"003cff":15,"0040ff":16,"0044ff":17,"0048ff":18,"004cff":19,"0050ff":20,"0054ff":21,"0058ff":22,"005cff":23,"0060ff":24,"0064ff":25,"0068ff":26,"006cff":27,"0070ff":28,"0074ff":29,"0078ff":30,"007cff":31,"0080ff":32,"0084ff":33,"0088ff":34,"008cff":35,"0090ff":36,"0094ff":37,"0098ff":38,"009cff":39,"00a0ff":40,"00a4ff":41,"00a8ff":42,"00acff":43,"00b0ff":44,"00b4ff":45,"00b8ff":46,"00bcff":47,"00c0ff":48,"00c4ff":49,"00c8ff":50,"00ccff":51,"00d0ff":52,"00d4ff":53,"00d8ff":54,"00dcff":55,"00e0ff":56,"00e4ff":57,"00e8ff":58,"00ecff":59,"00f0ff":60,"00f4ff":61,"00f8ff":62,"00fcff":63,"00ffff":64,"00fffc":65,"00fff8":66,"00fff4":67,"00fff0":68,"00ffec":69,"00ffe8":70,"00ffe4":71,"00ffe0":72,"00ffdc":73,"00ffd8":74,"00ffd4":75,"00ffd0":76,"00ffcc":77,"00ffc8":78,"00ffc4":79,"00ffc0":80,"00ffbc":81,"00ffb8":82,"00ffb4":83,"00ffb0":84,"00ffac":85,"00ffa8":86,"00ffa4":87,"00ffa0":88,"00ff9c":89,"00ff98":90,"00ff94":91,"00ff90":92,"00ff8c":93,"00ff88":94,"00ff84":95,"00ff80":96,"00ff7c":97,"00ff78":98,"00ff74":99,"00ff70":100,"00ff6c":101,"00ff68":102,"00ff64":103,"00ff60":104,"00ff5c":105,"00ff58":106,"00ff54":107,"00ff50":108,"00ff4c":109,"00ff48":110,"00ff44":111,"00ff40":112,"00ff3c":113,"00ff38":114,"00ff34":115,"00ff30":116,"00ff2c":117,"00ff28":118,"00ff24":119,"00ff20":120,"00ff1c":121,"00ff18":122,"00ff14":123,"00ff10":124,"00ff0c":125,"00ff08":126,"00ff04":127,"00ff00":128,"04ff00":129,"08ff00":130,"0cff00":131,"10ff00":132,"14ff00":133,"18ff00":134,"1cff00":135,"20ff00":136,"24ff00":137,"28ff00":138,"2cff00":139,"30ff00":140,"34ff00":141,"38ff00":142,"3cff00":143,"40ff00":144,"44ff00":145,"48ff00":146,"4cff00":147,"50ff00":148,"54ff00":149,"58ff00":150,"5cff00":151,"60ff00":152,"64ff00":153,"68ff00":154,"6cff00":155,"70ff00":156,"74ff00":157,"78ff00":158,"7cff00":159,"80ff00":160,"84ff00":161,"88ff00":162,"8cff00":163,"90ff00":164,"94ff00":165,"98ff00":166,"9cff00":167,"a0ff00":168,"a4ff00":169,"a8ff00":170,"acff00":171,"b0ff00":172,"b4ff00":173,"b8ff00":174,"bcff00":175,"c0ff00":176,"c4ff00":177,"c8ff00":178,"ccff00":179,"d0ff00":180,"d4ff00":181,"d8ff00":182,"dcff00":183,"e0ff00":184,"e4ff00":185,"e8ff00":186,"ecff00":187,"f0ff00":188,"f4ff00":189,"f8ff00":190,"fcff00":191,"ffff00":192,"fffc00":193,"fff800":194,"fff400":195,"fff000":196,"ffec00":197,"ffe800":198,"ffe400":199,"ffe000":200,"ffdc00":201,"ffd800":202,"ffd400":203,"ffd000":204,"ffcc00":205,"ffc800":206,"ffc400":207,"ffc000":208,"ffbc00":209,"ffb800":210,"ffb400":211,"ffb000":212,"ffac00":213,"ffa800":214,"ffa400":215,"ffa000":216,"ff9c00":217,"ff9800":218,"ff9400":219,"ff9000":220,"ff8c00":221,"ff8800":222,"ff8400":223,"ff8000":224,"ff7c00":225,"ff7800":226,"ff7400":227,"ff7000":228,"ff6c00":229,"ff6800":230,"ff6400":231,"ff6000":232,"ff5c00":233,"ff5800":234,"ff5400":235,"ff5000":236,"ff4c00":237,"ff4800":238,"ff4400":239,"ff4000":240,"ff3c00":241,"ff3800":242,"ff3400":243,"ff3000":244,"ff2c00":245,"ff2800":246,"ff2400":247,"ff2000":248,"ff1c00":249,"ff1800":250,"ff1400":251,"ff1000":252,"ff0c00":253,"ff0800":254,"ff0400":255,0:"000000",1:"0004ff",2:"0008ff",3:"000cff",4:"0010ff",5:"0014ff",6:"0018ff",7:"001cff",8:"0020ff",9:"0024ff",10:"0028ff",11:"002cff",12:"0030ff",13:"0034ff",14:"0038ff",15:"003cff",16:"0040ff",17:"0044ff",18:"0048ff",19:"004cff",20:"0050ff",21:"0054ff",22:"0058ff",23:"005cff",24:"0060ff",25:"0064ff",26:"0068ff",27:"006cff",28:"0070ff",29:"0074ff",30:"0078ff",31:"007cff",32:"0080ff",33:"0084ff",34:"0088ff",35:"008cff",36:"0090ff",37:"0094ff",38:"0098ff",39:"009cff",40:"00a0ff",41:"00a4ff",42:"00a8ff",43:"00acff",44:"00b0ff",45:"00b4ff",46:"00b8ff",47:"00bcff",48:"00c0ff",49:"00c4ff",50:"00c8ff",51:"00ccff",52:"00d0ff",53:"00d4ff",54:"00d8ff",55:"00dcff",56:"00e0ff",57:"00e4ff",58:"00e8ff",59:"00ecff",60:"00f0ff",61:"00f4ff",62:"00f8ff",63:"00fcff",64:"00ffff",65:"00fffc",66:"00fff8",67:"00fff4",68:"00fff0",69:"00ffec",70:"00ffe8",71:"00ffe4",72:"00ffe0",73:"00ffdc",74:"00ffd8",75:"00ffd4",76:"00ffd0",77:"00ffcc",78:"00ffc8",79:"00ffc4",80:"00ffc0",81:"00ffbc",82:"00ffb8",83:"00ffb4",84:"00ffb0",85:"00ffac",86:"00ffa8",87:"00ffa4",88:"00ffa0",89:"00ff9c",90:"00ff98",91:"00ff94",92:"00ff90",93:"00ff8c",94:"00ff88",95:"00ff84",96:"00ff80",97:"00ff7c",98:"00ff78",99:"00ff74",100:"00ff70",101:"00ff6c",102:"00ff68",103:"00ff64",104:"00ff60",105:"00ff5c",106:"00ff58",107:"00ff54",108:"00ff50",109:"00ff4c",110:"00ff48",111:"00ff44",112:"00ff40",113:"00ff3c",114:"00ff38",115:"00ff34",116:"00ff30",117:"00ff2c",118:"00ff28",119:"00ff24",120:"00ff20",121:"00ff1c",122:"00ff18",123:"00ff14",124:"00ff10",125:"00ff0c",126:"00ff08",127:"00ff04",128:"00ff00",129:"04ff00",130:"08ff00",131:"0cff00",132:"10ff00",133:"14ff00",134:"18ff00",135:"1cff00",136:"20ff00",137:"24ff00",138:"28ff00",139:"2cff00",140:"30ff00",141:"34ff00",142:"38ff00",143:"3cff00",144:"40ff00",145:"44ff00",146:"48ff00",147:"4cff00",148:"50ff00",149:"54ff00",150:"58ff00",151:"5cff00",152:"60ff00",153:"64ff00",154:"68ff00",155:"6cff00",156:"70ff00",157:"74ff00",158:"78ff00",159:"7cff00",160:"80ff00",161:"84ff00",162:"88ff00",163:"8cff00",164:"90ff00",165:"94ff00",166:"98ff00",167:"9cff00",168:"a0ff00",169:"a4ff00",170:"a8ff00",171:"acff00",172:"b0ff00",173:"b4ff00",174:"b8ff00",175:"bcff00",176:"c0ff00",177:"c4ff00",178:"c8ff00",179:"ccff00",180:"d0ff00",181:"d4ff00",182:"d8ff00",183:"dcff00",184:"e0ff00",185:"e4ff00",186:"e8ff00",187:"ecff00",188:"f0ff00",189:"f4ff00",190:"f8ff00",191:"fcff00",192:"ffff00",193:"fffc00",194:"fff800",195:"fff400",196:"fff000",197:"ffec00",198:"ffe800",199:"ffe400",200:"ffe000",201:"ffdc00",202:"ffd800",203:"ffd400",204:"ffd000",205:"ffcc00",206:"ffc800",207:"ffc400",208:"ffc000",209:"ffbc00",210:"ffb800",211:"ffb400",212:"ffb000",213:"ffac00",214:"ffa800",215:"ffa400",216:"ffa000",217:"ff9c00",218:"ff9800",219:"ff9400",220:"ff9000",221:"ff8c00",222:"ff8800",223:"ff8400",224:"ff8000",225:"ff7c00",226:"ff7800",227:"ff7400",228:"ff7000",229:"ff6c00",230:"ff6800",231:"ff6400",232:"ff6000",233:"ff5c00",234:"ff5800",235:"ff5400",236:"ff5000",237:"ff4c00",238:"ff4800",239:"ff4400",240:"ff4000",241:"ff3c00",242:"ff3800",243:"ff3400",244:"ff3000",245:"ff2c00",246:"ff2800",247:"ff2400",248:"ff2000",249:"ff1c00",250:"ff1800",251:"ff1400",252:"ff1000",253:"ff0c00",254:"ff0800", 255:"ff0400"},
+                heightmapGray={"000000":0,"010101":1,"020202":2,"030303":3,"040404":4,"050505":5,"060606":6,"070707":7,"080808":8,"090909":9,"0a0a0a":10,"0b0b0b":11,"0c0c0c":12,"0d0d0d":13,"0e0e0e":14,"0f0f0f":15,"101010":16,"111111":17,"121212":18,"131313":19,"141414":20,"151515":21,"161616":22,"171717":23,"181818":24,"191919":25,"1a1a1a":26,"1b1b1b":27,"1c1c1c":28,"1d1d1d":29,"1e1e1e":30,"1f1f1f":31,"202020":32,"212121":33,"222222":34,"232323":35,"242424":36,"252525":37,"262626":38,"272727":39,"282828":40,"292929":41,"2a2a2a":42,"2b2b2b":43,"2c2c2c":44,"2d2d2d":45,"2e2e2e":46,"2f2f2f":47,"303030":48,"313131":49,"323232":50,"333333":51,"343434":52,"353535":53,"363636":54,"373737":55,"383838":56,"393939":57,"3a3a3a":58,"3b3b3b":59,"3c3c3c":60,"3d3d3d":61,"3e3e3e":62,"3f3f3f":63,"404040":64,"414141":65,"424242":66,"434343":67,"444444":68,"454545":69,"464646":70,"474747":71,"484848":72,"494949":73,"4a4a4a":74,"4b4b4b":75,"4c4c4c":76,"4d4d4d":77,"4e4e4e":78,"4f4f4f":79,"505050":80,"515151":81,"525252":82,"535353":83,"545454":84,"555555":85,"565656":86,"575757":87,"585858":88,"595959":89,"5a5a5a":90,"5b5b5b":91,"5c5c5c":92,"5d5d5d":93,"5e5e5e":94,"5f5f5f":95,"606060":96,"616161":97,"626262":98,"636363":99,"646464":100,"656565":101,"666666":102,"676767":103,"686868":104,"696969":105,"6a6a6a":106,"6b6b6b":107,"6c6c6c":108,"6d6d6d":109,"6e6e6e":110,"6f6f6f":111,"707070":112,"717171":113,"727272":114,"737373":115,"747474":116,"757575":117,"767676":118,"777777":119,"787878":120,"797979":121,"7a7a7a":122,"7b7b7b":123,"7c7c7c":124,"7d7d7d":125,"7e7e7e":126,"7f7f7f":127,"808080":128,"818181":129,"828282":130,"838383":131,"848484":132,"858585":133,"868686":134,"878787":135,"888888":136,"898989":137,"8a8a8a":138,"8b8b8b":139,"8c8c8c":140,"8d8d8d":141,"8e8e8e":142,"8f8f8f":143,"909090":144,"919191":145,"929292":146,"939393":147,"949494":148,"959595":149,"969696":150,"979797":151,"989898":152,"999999":153,"9a9a9a":154,"9b9b9b":155,"9c9c9c":156,"9d9d9d":157,"9e9e9e":158,"9f9f9f":159,"a0a0a0":160,"a1a1a1":161,"a2a2a2":162,"a3a3a3":163,"a4a4a4":164,"a5a5a5":165,"a6a6a6":166,"a7a7a7":167,"a8a8a8":168,"a9a9a9":169,"aaaaaa":170,"ababab":171,"acacac":172,"adadad":173,"aeaeae":174,"afafaf":175,"b0b0b0":176,"b1b1b1":177,"b2b2b2":178,"b3b3b3":179,"b4b4b4":180,"b5b5b5":181,"b6b6b6":182,"b7b7b7":183,"b8b8b8":184,"b9b9b9":185,"bababa":186,"bbbbbb":187,"bcbcbc":188,"bdbdbd":189,"bebebe":190,"bfbfbf":191,"c0c0c0":192,"c1c1c1":193,"c2c2c2":194,"c3c3c3":195,"c4c4c4":196,"c5c5c5":197,"c6c6c6":198,"c7c7c7":199,"c8c8c8":200,"c9c9c9":201,"cacaca":202,"cbcbcb":203,"cccccc":204,"cdcdcd":205,"cecece":206,"cfcfcf":207,"d0d0d0":208,"d1d1d1":209,"d2d2d2":210,"d3d3d3":211,"d4d4d4":212,"d5d5d5":213,"d6d6d6":214,"d7d7d7":215,"d8d8d8":216,"d9d9d9":217,"dadada":218,"dbdbdb":219,"dcdcdc":220,"dddddd":221,"dedede":222,"dfdfdf":223,"e0e0e0":224,"e1e1e1":225,"e2e2e2":226,"e3e3e3":227,"e4e4e4":228,"e5e5e5":229,"e6e6e6":230,"e7e7e7":231,"e8e8e8":232,"e9e9e9":233,"eaeaea":234,"ebebeb":235,"ececec":236,"ededed":237,"eeeeee":238,"efefef":239,"f0f0f0":240,"f1f1f1":241,"f2f2f2":242,"f3f3f3":243,"f4f4f4":244,"f5f5f5":245,"f6f6f6":246,"f7f7f7":247,"f8f8f8":248,"f9f9f9":249,"fafafa":250,"fbfbfb":251,"fcfcfc":252,"fdfdfd":253,"fefefe":254,"ff0400":255,0:"000000",1:"010101",2:"020202",3:"030303",4:"040404",5:"050505",6:"060606",7:"070707",8:"080808",9:"090909",10:"0a0a0a",11:"0b0b0b",12:"0c0c0c",13:"0d0d0d",14:"0e0e0e",15:"0f0f0f",16:"101010",17:"111111",18:"121212",19:"131313",20:"141414",21:"151515",22:"161616",23:"171717",24:"181818",25:"191919",26:"1a1a1a",27:"1b1b1b",28:"1c1c1c",29:"1d1d1d",30:"1e1e1e",31:"1f1f1f",32:"202020",33:"212121",34:"222222",35:"232323",36:"242424",37:"252525",38:"262626",39:"272727",40:"282828",41:"292929",42:"2a2a2a",43:"2b2b2b",44:"2c2c2c",45:"2d2d2d",46:"2e2e2e",47:"2f2f2f",48:"303030",49:"313131",50:"323232",51:"333333",52:"343434",53:"353535",54:"363636",55:"373737",56:"383838",57:"393939",58:"3a3a3a",59:"3b3b3b",60:"3c3c3c",61:"3d3d3d",62:"3e3e3e",63:"3f3f3f",64:"404040",65:"414141",66:"424242",67:"434343",68:"444444",69:"454545",70:"464646",71:"474747",72:"484848",73:"494949",74:"4a4a4a",75:"4b4b4b",76:"4c4c4c",77:"4d4d4d",78:"4e4e4e",79:"4f4f4f",80:"505050",81:"515151",82:"525252",83:"535353",84:"545454",85:"555555",86:"565656",87:"575757",88:"585858",89:"595959",90:"5a5a5a",91:"5b5b5b",92:"5c5c5c",93:"5d5d5d",94:"5e5e5e",95:"5f5f5f",96:"606060",97:"616161",98:"626262",99:"636363",100:"646464",101:"656565",102:"666666",103:"676767",104:"686868",105:"696969",106:"6a6a6a",107:"6b6b6b",108:"6c6c6c",109:"6d6d6d",110:"6e6e6e",111:"6f6f6f",112:"707070",113:"717171",114:"727272",115:"737373",116:"747474",117:"757575",118:"767676",119:"777777",120:"787878",121:"797979",122:"7a7a7a",123:"7b7b7b",124:"7c7c7c",125:"7d7d7d",126:"7e7e7e",127:"7f7f7f",128:"808080",129:"818181",130:"828282",131:"838383",132:"848484",133:"858585",134:"868686",135:"878787",136:"888888",137:"898989",138:"8a8a8a",139:"8b8b8b",140:"8c8c8c",141:"8d8d8d",142:"8e8e8e",143:"8f8f8f",144:"909090",145:"919191",146:"929292",147:"939393",148:"949494",149:"959595",150:"969696",151:"979797",152:"989898",153:"999999",154:"9a9a9a",155:"9b9b9b",156:"9c9c9c",157:"9d9d9d",158:"9e9e9e",159:"9f9f9f",160:"a0a0a0",161:"a1a1a1",162:"a2a2a2",163:"a3a3a3",164:"a4a4a4",165:"a5a5a5",166:"a6a6a6",167:"a7a7a7",168:"a8a8a8",169:"a9a9a9",170:"aaaaaa",171:"ababab",172:"acacac",173:"adadad",174:"aeaeae",175:"afafaf",176:"b0b0b0",177:"b1b1b1",178:"b2b2b2",179:"b3b3b3",180:"b4b4b4",181:"b5b5b5",182:"b6b6b6",183:"b7b7b7",184:"b8b8b8",185:"b9b9b9",186:"bababa",187:"bbbbbb",188:"bcbcbc",189:"bdbdbd",190:"bebebe",191:"bfbfbf",192:"c0c0c0",193:"c1c1c1",194:"c2c2c2",195:"c3c3c3",196:"c4c4c4",197:"c5c5c5",198:"c6c6c6",199:"c7c7c7",200:"c8c8c8",201:"c9c9c9",202:"cacaca",203:"cbcbcb",204:"cccccc",205:"cdcdcd",206:"cecece",207:"cfcfcf",208:"d0d0d0",209:"d1d1d1",210:"d2d2d2",211:"d3d3d3",212:"d4d4d4",213:"d5d5d5",214:"d6d6d6",215:"d7d7d7",216:"d8d8d8",217:"d9d9d9",218:"dadada",219:"dbdbdb",220:"dcdcdc",221:"dddddd",222:"dedede",223:"dfdfdf",224:"e0e0e0",225:"e1e1e1",226:"e2e2e2",227:"e3e3e3",228:"e4e4e4",229:"e5e5e5",230:"e6e6e6",231:"e7e7e7",232:"e8e8e8",233:"e9e9e9",234:"eaeaea",235:"ebebeb",236:"ececec",237:"ededed",238:"eeeeee",239:"efefef",240:"f0f0f0",241:"f1f1f1",242:"f2f2f2",243:"f3f3f3",244:"f4f4f4",245:"f5f5f5",246:"f6f6f6",247:"f7f7f7",248:"f8f8f8",249:"f9f9f9",250:"fafafa",251:"fbfbfb",252:"fcfcfc",253:"fdfdfd",254:"fefefe", 255:"ff0400"},
+                heightMap = heightmapColor,
+                loadImage = function (id, src) {
+                    "use strict";
+                    console.log("loadimage", id, src);
+                    var reader = new FileReader(),
+                        canvas,
+                        canvasOUT = document.getElementById("canvasOUT"),
+                        context;
+                    if (id) {
+                        canvas = document.getElementById(id);
                     } else {
-                        el2.style.visibility = "hidden";
+                        canvas = document.createElement("canvas");
                     }
-                }
-            }
-            function loadImage() {
-                "use strict";
-                var input, file, fr, img;
-                if (typeof window.FileReader !== "function") {
-                    write("The file API is not supported on this browser yet.");
-                    return;
-                }
-                input = document.getElementById("imgfile");
-                if (!input) {
-                    write("Could not find the imgfile element.");
-                } else {
-                    if (!input.files) {
-                        write("This browser does not seem to support the 'files' property of file inputs.");
-                    } else {
-                        if (!input.files[0]) {
-                            write("Please select a file before clicking 'Load'");
+                    context = canvas.getContext("2d");
+                    reader.onload = function (evt, src) {
+                        var img = new Image();
+                        img.onload = function() {
+                            if (id === "canvasIMG") {
+                                canvasOUT.width = canvas.width;
+                                canvasOUT.height = canvas.height;
+                            }
+                        };
+                        img.src = src === undefined ? evt.target.result : src;
+                        console.log("checkpoint");
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        context.drawImage(img, 0, 0);
+                    };
+                    reader.readAsDataURL(src.files[0] || src);
+                    return canvas;
+                },
+                write = function (msg) {
+                    "use strict";
+                    var miniConsole = document.getElementById("miniConsole");
+                    miniConsole.value += msg;
+                },
+                marker,
+                markerMaker = function (coordX, coordY, coordZ) {
+                    "use strict";
+                    if (coordX.value !== "" && coordY.value !== "" && coordZ.value !== "") {
+                        if (isNaN(parseInt(coordX.value, 10)) || isNaN(parseInt(coordY.value, 10)) || isNaN(parseInt(coordZ.value, 10))) {
+                            write("Marker creation failed: one or more fields were not a parsable number");
                         } else {
-                            file = input.files[0];
-                            fr = new FileReader();
-                            fr.onload = createImage;
-                            fr.readAsDataURL(file);
+                            marker = {
+                                x: coordX,
+                                y: coordY,
+                                z: coordZ
+                            };
                         }
                     }
-                }
-                function createImage() {
-                    img = new Image();
-                    img.onload = imageLoaded;
-                    img.src = fr.result;
-                }
-                function imageLoaded() {
-                    var canvas = document.getElementById("canvasIN");
-                    var out = document.getElementById("canvasOUT");
-                    var width = canvas.width = img.width;
-                    var height = canvas.height = img.height;
-                    var ctx = canvas.getContext("2d");
-                    ctx.drawImage(img,0,0);
-                    var pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-                    var i;
-                    var resources = {};
-                    var floor = Math.floor;
-                    for (i = 0; i < pixels.length; i+= 4) {
-                        if (pixels[i][0] !== 0 || pixels[i][1] !== 0 || pixels[i][2] !== 0 || pixels[i][3] !== 0) {
-                            x = floor(i/width);
-                            z = i%width;
-                            if (resources[x] === undefined) {
-                                resources[x] = {};
-                            }
-                            color = parseInt(pixels[i][0], 16) + parseInt(pixels[i][1], 16) + parseInt(pixels[i][2], 16);
-                            if (!heightmap[color]) {
-                                write('Color "' + color + '" is not defined in the heightmap.');
-                                return false;
-                            }
-                            resources[x][z] = heightmap[color];
+                },
+                radius = 8,
+                minResources = 1,
+                ignoreHeight = false,
+                process = function () {
+                    "use strict";
+                    var canvasIMG = document.getElementById("canvasIMG"),
+                        context = canvasIMG.getContext("2d"),
+                        canvasOUT = document.getElementById("canvasOUT"),
+                        out = canvasOUT.getContext("2d"),
+                        imgd = context.getImageData(0, 0, canvasIMG.width, canvasIMG.height),
+                        pixels = imgd.data,
+                        i,
+                        resources = {},
+                        ceil = Math.ceil,
+                        color,
+                        r,
+                        g,
+                        b,
+                        rgb,
+                        minRes = [],
+                        value,
+                        x,
+                        z,
+                        hex = 16,
+                        coordMarker,
+                        width = canvasIMG.width,
+                        multi = {},
+                        abs = Math.abs,
+                        xseek,
+                        zseek,
+                        output = [],
+                        y,
+                        outX,
+                        outZ,
+                        visiblepixels = [],
+                        pointer,
+                        point,
+                        quantity,
+                        set;
+                    for (i = 0; i < pixels.length; i += 4) { // produce index of non-transparent pixels.
+                        if (pixels[i + 3] !== 0) {
+                            visiblepixels.push(i);
                         }
                     }
-                    var multi = {};
-                    var abs = Math.abs();
+                    for (i = 0; i < visiblepixels.length; i += 1) {
+                        pointer = visiblepixels[i];
+                        r = pixels[pointer];
+                        g = pixels[pointer + 1];
+                        b = pixels[pointer + 2];
+                        point = pointer / 4;
+                        x = point % width;
+                        z = ceil(point / width);
+                        if (resources[x] === undefined) {
+                            resources[x] = {};
+                        }
+                        r = ("00" + r.toString(hex)).slice(-2);
+                        g = ("00" + g.toString(hex)).slice(-2);
+                        b = ("00" + b.toString(hex)).slice(-2);
+                        rgb = r + g + b;
+                        if (!heightMap[rgb]) {
+                            write('Color "' + rgb + '" is not defined in heightMap.');
+                        }
+                        if (marker !== undefined && heightMap[rgb] === marker.y) {
+                            coordMarker = {
+                                x: x,
+                                z: z,
+                                ax: marker.x,
+                                az: marker.z
+                            };
+                        }
+                        resources[x][z] = heightMap[rgb];
+                    }
+                    // resources: list of resources[x][z]: y
                     for (x in resources) {
-                        for (z in resources[x]) {
-                            for (xseek = x-radius, xstop = x+radius; xseek < xstop; xseek++) {
-                                if (resources[xseek] !== undefined) {
-                                    for (zseek = z-radius, zstop = z+radius; zseek < zstop; zseek++) {
-                                        if (resources[xseek][zseek] !== undefined) {
-                                            if (abs(resources[x][z] - resources[xseek][yseek]) < radius) {
-                                                if (multi[x] === undefined) {
-                                                    multi[x] = {};
-                                                    multi[x][z] = 0
+                        if (resources.hasOwnProperty(x)) {
+                            for (z in resources[x]) {
+                                if (resources[x].hasOwnProperty(z)) {
+                                    for (xseek in resources) {
+                                        if (resources.hasOwnProperty(xseek)) {
+                                            if (abs(x-xseek) < radius) {
+                                                for (zseek in resources[xseek]) {
+                                                    if (resources[xseek].hasOwnProperty(zseek)) {
+                                                        if (abs(z-zseek) < radius) {
+                                                            if (ignoreHeight || (xseek !== x && zseek !== z && abs(resources[x][z] - resources[xseek][zseek]) < radius)) {
+                                                                if (multi[x] === undefined) {
+                                                                    multi[x] = {};
+                                                                    multi[x][z] = 0;
+                                                                }
+                                                                multi[x][z] += 1;
+                                                            }
+                                                        }
+                                                    }
                                                 }
-                                                multi[x][z] = multi[x][z] + 1;
                                             }
                                         }
                                     }
@@ -102,33 +195,260 @@
                             }
                         }
                     }
-                }
-                function write(msg) {
-                    "use strict";
-                    var miniConsole = document.getElementById("miniConsole");
-                    miniConsole.value += msg;
-                }
-            }
+                    // multi: list of resources within radius at [x][z]: y
+                    for (x in multi) {
+                        if (multi.hasOwnProperty(x)) {
+                            for (z in multi[x]) {
+                                if (multi[x].hasOwnProperty(z)) {
+                                    if (minResources < multi[x][z]) {
+                                        if (minRes[multi[x][z]] === undefined) {
+                                            minRes[multi[x][z]] = [];
+                                        }
+                                        minRes[multi[x][z]].push({
+                                            x: x,
+                                            y: resources[x][z],
+                                            z: z,
+                                            q: multi[x][z]
+                                        });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    for (quantity = 0; quantity < minRes.length; quantity+=1) { // begin drawing on the drawing canvas.
+                        if (minRes[quantity] !== undefined) {
+                            if (quantity === 0) {
+                                color = 1;
+                            } else {
+                                if (quantity > 255) {
+                                    color = 255;
+                                } else {
+                                    color = quantity;
+                                }
+                            }
+                            out.strokeStyle = "#" + heightMap[color];
+                            out.fillStyle = "#" + heightMap[color];
+                            for (set = 0; set < minRes[quantity].length; set+=1) {
+                                value = minRes[quantity][set];
+                                x = parseInt(value.x, 10);
+                                y = parseInt(value.y, 10);
+                                z = parseInt(value.z, 10);
+                                out.fillRect(x - radius, z - radius, (radius*2)+1, (radius*2)+1);
+                                if (coordMarker) {
+                                    if (x < coordMarker.x) {
+                                        outX = coordMarker.ax - (coordMarker.x - x);
+                                    } else {
+                                        outX = coordMarker.ax + (x - coordMarker.x);
+                                    }
+                                    if (z < coordMarker.z) {
+                                        outZ = coordMarker.az - (coordMarker.z - z);
+                                    } else {
+                                        outZ = coordMarker.az + (z - coordMarker.z);
+                                    }
+                                    output.push("there are " + value.q + " units at x:" + outX + " y:" + y + "z:" + outZ + ".");
+                                } else {
+                                    output.push("there are " + value.q + " units at x:" + x + " y:" + y + " z:" + z + ".");
+                                }
+                            }
+                        }
+                    }   // update the DOM at this point.
+                    output = output.reverse();
+                    output = output.join("\n");
+                    write(output);
+                };
+            window.onload = function () {
+                "use strict";
+                var canvasIMG = document.getElementById("canvasIMG"),
+                    canvasTOP = document.getElementById("canvasTOP"),
+                    buttonMapToggle = document.getElementById("mapToggle"),
+                    buttonOutToggle = document.getElementById("outToggle"),
+                    canvasOUT = document.getElementById("canvasOUT"),
+                    imgfile = document.getElementById("imgfile"),
+                    topofile = document.getElementById("topofile"),
+                    heightmapfileinput = document.getElementById("heightmapfileinput"),
+                    heightmapfile = document.getElementById("heightmapfile"),
+                    coordX = document.getElementById("coordX"),
+                    coordY = document.getElementById("coordY"),
+                    coordZ = document.getElementById("coordZ"),
+                    radiusInput = document.getElementById("radius"),
+                    minResourcesInput = document.getElementById("minResources"),
+                    ignoreHeightInput = document.getElementById("ignoreHeight"),
+                    btnprocess = document.getElementById("process"),
+                    follow = function (evt) {
+                    var divName = "tooltip",
+                        offX = 15,
+                        offY = 15,
+                        mouseX = function (evt) {
+                            if (!evt) {
+                                evt = window.event;
+                            }
+                            if (evt.pageX) {
+                                return evt.pageX;
+                            }
+                            if (evt.clientX) {
+                                return evt.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
+                            }
+                            return 0;
+                        },
+                        mouseY = function (evt) {
+                            if (!evt) {
+                                evt = window.event;
+                            }
+                            if (evt.pageY) {
+                                return evt.pageY;
+                            }
+                            if (evt.clientY) {
+                                return evt.clientY + (document.documentElement.scrollTop || document.body.scrollTop);
+                            }
+                            return 0;
+                        },
+                        obj = document.getElementById(divName),
+                        x = parseInt(mouseX(evt), 10),
+                        y = parseInt(mouseY(evt), 10);
+                    obj.style.visibility = "visible";
+                    obj.style.left = (x + offX) + "px";
+                    obj.style.top = (y + offY) + "px";
+                    obj.firstChild.nodeValue = x + ", " + y;
+                };
+                canvasIMG.onmousemove = follow;
+                canvasOUT.onmousemove = follow;
+                canvasTOP.onmousemove = follow;
+                buttonMapToggle.onclick = function () {
+                    var text = buttonMapToggle.firstChild;
+                    if (text.nodeValue === "Show Topograph") {
+                        canvasIMG.style.visibility = "hidden";
+                        canvasTOP.style.visibility = "visible";
+                        text.nodeValue = "Show Datamap";
+                    } else {
+                        canvasIMG.style.visibility = "visible";
+                        canvasTOP.style.visibility = "hidden";
+                        text.nodeValue = "Show Topograph";
+                    }
+                };
+                buttonOutToggle.onclick = function () {
+                    var text = buttonOutToggle.firstChild;
+                    if (text.nodeValue === "Hide Output") {
+                        canvasOUT.style.visibility = "hidden";
+                        text.nodeValue = "Show Output";
+                    } else {
+                        canvasOUT.style.visibility = "visible";
+                        text.nodeValue = "Hide Output";
+                    }
+                };
+                imgfile.onchange = function () {
+                    loadImage("canvasIMG", imgfile);
+                };
+                topofile.onchange = function () {
+                    loadImage("canvasTOP", topofile);
+                };
+                heightmapfile.onchange = function () {
+                    if (heightmapfile.value === "color") {
+                        heightmapfileinput.style.display = "none";
+                        heightMap = heightmapColor;
+                    } else {
+                        if (heightmapfile.value === "gray") {
+                            heightmapfileinput.style.display = "none";
+                            heightMap = heightmapGray;
+                        } else {
+                            if (heightmapfile.value === "custom") {
+                                heightmapfileinput.style.display = "inline-block";
+                            }
+                        }
+                    }
+                };
+                heightmapfileinput.onchange = function () {
+                    var canvas = document.createElement("canvas"),
+                        callback;
+                    canvas.setAttribute("id", "hmfi");
+                    callback = function(canvas) {
+                        var context = canvas.getContext("2d"),
+                            imageData = context.getImageData(0, 0, canvas.width, canvas.height),
+                            pixelArray = imageData.data,
+                            length = pixelArray.length / 4, // 4 components - red, green, blue and alpha
+                            i,
+                            index,
+                            hex = 16,
+                            r,
+                            g,
+                            b,
+                            //a,
+                            rgb;
+                        heightMap = {};
+                        for (i = 0; i < length; i+=1) {
+                            index = 4 * i;
+                            r = pixelArray[index];
+                            g = pixelArray[index + 1];
+                            b = pixelArray[index + 2];
+                            //a = pixelArray[index + 3];
+                            r = ("00" + r.toString(hex)).slice(-2);
+                            g = ("00" + g.toString(hex)).slice(-2);
+                            b = ("00" + b.toString(hex)).slice(-2);
+                            rgb = r + g + b;
+                            if (heightMap[rgb] === undefined) { // map color -> value
+                                heightMap[rgb] = i;
+                            }
+                            if (heightMap[i] === undefined) { // map value -> color
+                                heightMap[i] = rgb;
+                            }
+                        }
+                    };
+                    loadImage("hmfi", heightmapfileinput, function(){callback(canvas);});
+                };
+                coordX.onchange = markerMaker(coordX, coordY, coordZ);
+                coordY.onchange = markerMaker(coordX, coordY, coordZ);
+                coordZ.onchange = markerMaker(coordX, coordY, coordZ);
+                radiusInput.onchange = function () {
+                    radius = Math.abs(parseInt(radiusInput.value, 10));
+                    if (isNaN(radius)) {
+                        write('Expected an integer for the "radius" field.');
+                        radius = undefined;
+                    }
+                };
+                minResourcesInput.onchange = function () {
+                    minResources = Math.abs(parseInt(minResourcesInput.value, 10));
+                    if (isNaN(minResources)) {
+                        write('Expected an integer for the "minResources" field. Defaulting to 1.');
+                        minResources = 1;
+                    }
+                };
+                ignoreHeightInput.onchange = function () {
+                    ignoreHeight = ignoreHeightInput.checked;
+                };
+                btnprocess.onmouseup = function () {
+                    process();
+                };
+            };
         </script>
     </head>
     <body>
-        <form action="#" onsubmit="return false;">
-            <label for="imgfile">The Data map:<input type="file" id="imgfile"></label><br>
-            <label for="topofile">The Topograph map:<input type="file" id="topofile"></label><br>
+        <div>
+            Coordinates of the Marker (optional):<label for="coordX">X:<input type="number" id="coordX" size="1" pattern="-?[0-9]+"></label><label for="coordY">Y:<input type="number" id="coordY" size="1" pattern="-?[0-9]+"></label><label for="coordZ">Z:<input type="number" id="coordZ" size="1" pattern="-?[0-9]+"></label><br>
             <label for="heightmapfile">The Height map:<select id="heightmapfile"><option selected value="color">Cartograph: Default color heightmap</option><option value="gray">Cartograph: Default grayscale heightmap</option><option value="custom">Custom heightmap</option></select></label><label for="heightmapfileinput">Custom Heightmap:<input type="file" id="heightmapfileinput"></label><br>
-            <label for="radius">Radius to look for other resources of the same type:<input id="radius" size="1"></label><br>
-            <label>Coordinates of the Marker (optional):<label for="coordX">X:<input id="coordX" size="1"></label><label for="coordY">Y:<input id="coordY" size="1"></label><label for="coordZ">Z:<input id="coordZ" size="1"></label></label>
-            <input type="button" id="btnLoad" value="Run" onclick="loadImage();">
-        </form>
-        <canvas id="canvasIN">HTML5 Canvas Support Required</canvas>
-        <canvas id="canvasOUT">HTML5 Canvas Support Required</canvas>
-        <p>Data map: In Cartograph G: Generate two maps: The resource map, and optionally a plain topograph map. Load these files into the form fields.</p>
-        <p>Heightmap: If you use a custom heightmap, the program will need an image of the heightmap that has the pixel color values in order from lowest value in the first pixel to the highest value in the last pixel starting from the top left corner of the image.</p>
-        <p>Radius: How far you want the program to look for other resources.</p>
-        <p>Coordinates of the Marker: The marker in which to compute coordinates from. Because the generated map is heightmap only, the resource used should be unique to the map and <em>very</em> high (or using an image editor put a red pixel where you wish to designate the coordinate marker at Y:255)</p>
-        <p>When the program has finished assimilating the data, it will draw squares to a second canvas where resource regions overlap and color by how many there are similarly to the heightmap.</p>
-        <p>If coordinates are supplied, they will be attached.</p>
-        <p>The topograph map is not necessary, but it can help you get there visually, and you will be able to toggle between the two.</p>
-        <label for="miniConsole">Mini-Console:<br><textarea id="miniConsole" readonly placeholder="Mini-console for program output"></textarea></label>
+            <label for="radius">Radius to look for other resources of the same type:<input type="number" id="radius" size="1" placeholder="8" pattern="[0-9]+"></label> For monster spawners 31 is the maximum overlap distance.<br>
+            <label for="ignoreHeight">Ignore height?<input type="checkbox" id="ignoreHeight"></label><br>
+            <label for="minResources">Minimum other resources of the same type for detection:<input type="number" id="minResources" size="1" placeholder="1" pattern="[0-9]+"></label><br>
+            <label for="topofile">The Topograph map (optional):<input type="file" id="topofile"></label><a href="http://plng.github.io/MRDD/Fungus_normal_north.png">Demo image, right click save to drive.</a><br>
+            <label for="imgfile">The Data map (required):<input type="file" id="imgfile"></label><a href="http://plng.github.io/MRDD/Fungus_heightmapcolor_north_only-block-52.png">Demo image, right click save to drive.</a><br>
+            <input type="button" id="process" value="Process Data Map">
+        </div>
+        <div id="mapContainer">
+            <canvas id="canvasIMG">HTML5 Canvas Support Required</canvas>
+            <canvas id="canvasTOP">HTML5 Canvas Support Required</canvas>
+            <canvas id="canvasOUT">HTML5 Canvas Support Required</canvas>
+        </div>
+        <div>
+            <button id="mapToggle">Show Topograph</button><button id="outToggle">Hide Output</button><br>
+            <label for="miniConsole">Mini-Console:<br><textarea id="miniConsole" readonly placeholder="Mini-console for program output"></textarea></label>
+            <p>Coordinates of the Marker: The marker in which to compute coordinates from. Because the generated map is heightmap only, the resource used should be unique to the map and <em>very</em> high (or using an image editor put a red pixel where you wish to designate the coordinate marker at Y:255)</p>
+            <p>Heightmap: If you use a custom heightmap, the program will need an image of the heightmap that has the pixel color values in order from lowest value in the first pixel to the highest value in the last pixel starting from the top left corner of the image.</p>
+            <p>Radius: How far you want the program to look for other resources.</p>
+            <p>Ignore Height: ignore the radius value when checking height.</p>
+            <p>Minimum other Resources: only draw squares for areas that meet a minimum criteria.</p>
+            <p>The Topograph: The topograph map is not necessary, but it can help you get to the location visually, and you will be able to toggle between the Data Map and Topograph map.</p>
+            <p>Data map: In Cartograph G: Generate two maps: The resource map, and optionally a plain topograph map. Load these files into the form fields. <b>Loading the data map starts the processing, so make sure the other fields are filled first.</b></p>
+            <p>When the program has finished assimilating the data, it will draw squares to a second canvas where resource regions overlap and color by how many there are similarly to the heightmap.</p>
+            <p>If coordinates are supplied, they will be mentioned in the miniconsole.</p>
+        </div>
+        <div id="tooltip">ToolTip Node</div>
     </body>
 </html>
